@@ -1,3 +1,3 @@
 # Introduction
 
-The beginning of an awesome article...
+Welcome to the Stream AMG mobile documentation platform
