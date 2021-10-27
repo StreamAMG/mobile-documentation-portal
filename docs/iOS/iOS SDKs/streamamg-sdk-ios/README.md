@@ -25,6 +25,14 @@ PlayKit:
    PlayKit provides video playback for Stream AMG clients
    [Full details](PlayKitReadme.md)
 
+ PlayKit2Go:
+   Download and playback media for PlayKit
+   [Full details](PlayKit2GoReadme.md)
+
+Purchases:
+   Integrate IAPs into the StreamAMG CloudPay backend
+   [Full details](PurchasesReadme.md)
+
 Requirements
 ----------------
 
@@ -48,6 +56,14 @@ pod 'StreamAMGSDK/CloudMatrix'
 pod 'StreamAMGSDK/StreamPlay'
 pod 'StreamAMGSDK/Authentication'
 pod 'StreamAMGSDK/PlayKit'
+pod 'StreamAMGSDK/PlayKit2Go'
+pod 'StreamAMGSDK/Purchases'
+```
+
+Alternatively, to import all modules:
+
+```
+pod 'StreamAMGSDK'
 ```
 
 Please use the same version for all modules to prevent dependency errors.
@@ -76,11 +92,17 @@ More information about the individual modules can be found at their respective p
 
 - [PlayKit](PlayKitReadme.md)
 
+- [PlayKit2Go](PlayKit2GoReadme.md)
+
+- [Purchases](PurchasesReadme.md)
+
 
 Change Log:
 ---------------
 
 All notable changes to this project will be documented in this section.
+
+### 0.10 - Purchases and PlayKit2Go SDKs added
 
 ### 0.9 - PlayKit functional changes and bug fixes
 

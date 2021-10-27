@@ -620,6 +620,8 @@ amgPlayKit?.setSpoilerFree(enabled: true) // true = spoiler free mode on, false 
 
 All notable changes to this project will be documented in this section.
 
+### 0.10 - Minor changes for PlayKit2Go implementation
+
 ### 0.9
 - Added Youbora analytics and the ability to choose analytics services
 - Added ability to change scrub bar colours

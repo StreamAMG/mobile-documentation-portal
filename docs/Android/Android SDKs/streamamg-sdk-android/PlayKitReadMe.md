@@ -4,14 +4,16 @@ The AMG PlayKit library is a simple to use wrapper around the Kaltura PlayKit su
 
 ## Installing AMG PlayKit
 
+Add the jitpack repository and the Youbora repository to your project level build.gradle
 
-Add the jitpack repository to your project level build.gradle
+The Youbora repository is currently required even if you are not implementing Youbora analytics. It is hoped this will be resolved in a future releasae.
 
 ```
 allprojects {
        repositories {
            ....
            maven { url "https://jitpack.io" }
+           maven { url  "https://npaw.jfrog.io/artifactory/youbora/" }
        }
   }
 ```
@@ -545,6 +547,8 @@ amgPlayKit?.setSpoilerFree(enabled: Boolean) // true = spoiler free mode on, fal
 # Change Log
 
 All notable changes to this project will be documented in this section.
+
+### 0.4 - Minor changes for PlayKit2Go integration
 
 ### 0.3
 - Added Youbora analytics and the ability to choose analytics services

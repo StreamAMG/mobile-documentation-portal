@@ -24,6 +24,15 @@ PlayKit:
   PlayKit provides video playback for Stream AMG clients
   [Full details](PlayKitReadMe.md)
 
+ PlayKit2Go:
+   Download and playback media for PlayKit
+   [Full details](PlayKit2GoReadMe.md)
+
+Purchases:
+   Integrate IAPs into the StreamAMG CloudPay backend
+   [Full details](PurchasesReadMe.md)
+
+
   To use the modules the following steps should be followed:
 
 ## Installation
@@ -47,6 +56,8 @@ In your app level build.gradle file, add the dependencies required - you MUST ad
     implementation "com.github.StreamAMG.streamamg-sdk-android:streamamg-sdk-streamplay:(version number)"
     implementation "com.github.StreamAMG.streamamg-sdk-android:streamamg-sdk-authentication:(version number)"
     implementation "com.github.StreamAMG.streamamg-sdk-android:streamamg-sdk-playkit:(version number)"
+    implementation "com.github.StreamAMG.streamamg-sdk-android:streamamg-sdk-playkit2go:(version number)"
+    implementation "com.github.StreamAMG.streamamg-sdk-android:streamamg-sdk-purchases:(version number)"
   ```  
 
 alternatively, to install all SDK elements, use the following line:
@@ -61,6 +72,8 @@ Change Log:
 ===========
 
 All notable changes to this project will be documented in this section.
+
+### 0.4 - Purchases and PlayKit2Go SDKs added
 
 ### 0.3 - Updates to Core and major Playkit feature enhancements
 
