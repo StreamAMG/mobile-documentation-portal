@@ -108,6 +108,12 @@ And resuming the player should happen when the fragment or activity is resumed (
     playKit.playerResume()
 ```
 
+When PlayKit is no longer required, it should be destroyed. This removed all active PlayKit and Player operations (but does not affect PlayKit2Go downloads)
+
+``` Kotlin
+    playKit.destroyPlayer()
+```
+
 ### Adding an analytics service
 
 Currently Playkit supports 2 anayltics services, StreamAMG's own Media Player analyics service, and Youbora analytics.
@@ -124,6 +130,21 @@ constructor(amgAnalyticsPartnerID: Int)
 ```
 
 If you do not pass an analytics configuration during initialisation, no analytics service will be used
+
+Youbora analytics can handle up to 20 extra static parameters being passed to it. To do this, you should use the YouboraService builder class:
+
+``` Kotlin
+        var analyticsConfig = AMGAnalyticsConfig.YouboraService()
+            .accountCode("streamamgdev") // REQUIRED
+            .userName("A USER CODE") // Should be non identifying
+            .parameter(1, "Static Parameter Value 1")
+            .parameter(2, "Static Parameter Value 2")
+            .parameter(3, "Static Parameter Value 3") // through to 20
+            .build()
+        amgPlayKit.createPlayer(requireContext(), analyticsConfig)
+```
+
+If you do not pass an account code in this instance, the configuration file will not work
 
 ### Manually updating the PartnerID
 
@@ -456,6 +477,11 @@ To minimise from full screen
 playKit.minimise()
 ```
 
+If you are running PlayKit in a wider activity, as opposed to it's own activity (in a Fragment, for example), you should remove orientation when leaving the player screen (assuming you do not want the rest of the activity to be able to re-orient)
+
+``` Kotlin
+   playKit.initialiseSensor(activity, false) // activity is a non null valid Activity reference
+```
 ## Sending Media
 
 The main function of PlayKit is to play and interact with media provided by Stream AMG and it's partners.
@@ -465,6 +491,7 @@ There are only 5 required elements when requesting media to be played:
 * Media URL
 * Entry ID
 * KS (where needed)
+* Title (For Youbora analytics)
 
 you can also pass a 'mediaType' element to force the player into 'live' mode if required - see below
 
@@ -473,20 +500,20 @@ Please note it is no longer required to pass the UIConfig parameter to PlayKit.
 If you have provided the Partner ID to the PlayKit already, you do not need to pass this with each media request:
 
 ``` Kotlin
-public fun loadMedia(serverUrl: String, entryID: String, ks: String? = null, mediaType: AMGMediaType = AMGMediaType.VOD)
+public fun loadMedia(serverUrl: String, entryID: String, ks: String? = null, title: String? = null, mediaType: AMGMediaType = AMGMediaType.VOD)
 ```
 for example:
 ``` Kotlin
-playKit.loadMedia("https://mymediaserver.com", "0_myEntryID", "VALID_KS_PROVIDED_BY_STREAM_AMG")
+playKit.loadMedia("https://mymediaserver.com", "0_myEntryID", "VALID_KS_PROVIDED_BY_STREAM_AMG", title: String? = null)
 ```
 
 Or with a Partner ID
 ``` Kotlin
-public fun loadMedia(serverUrl: String, partnerID: Int, entryID: String, ks: String? = null, mediaType: AMGMediaType = AMGMediaType.VOD)
+public fun loadMedia(serverUrl: String, partnerID: Int, entryID: String, ks: String? = null, title: String? = null, mediaType: AMGMediaType = AMGMediaType.VOD)
 ```
 for example:
 ``` Kotlin
-playKit.loadMedia("https://mymediaserver.com", 111111111, "0_myEntryID", "VALID_KS_PROVIDED_BY_STREAM_AMG")
+playKit.loadMedia("https://mymediaserver.com", 111111111, "0_myEntryID", "VALID_KS_PROVIDED_BY_STREAM_AMG", "AMG Demo Video")
 ```
 
 If the media does not require a KSession token, this should be left as null
@@ -494,6 +521,8 @@ If the media does not require a KSession token, this should be left as null
 ### Forcing live mode
 
 When sending media to the player, the mediaType defaults to VOD and will automatically attempt to determine if the media is live or VOD, this will affect the scrub bar colours (if they are different) and the layout of the scrub bar.
+
+If the media is a 'harvested' live event (such as a replay), the VOD scrub bar should show
 
 To force the player into 'live' mode, 'mediaType: .Live' should be passed to the player when sending media
 
@@ -541,12 +570,31 @@ PlayKit has the ability to hide the scrub bar and timing lables, effectively mak
 To enable (or disable) spoiler free mode:
 
 ``` Kotlin
-amgPlayKit?.setSpoilerFree(enabled: Boolean) // true = spoiler free mode on, false = scrub bar on
+playKit.setSpoilerFree(enabled: Boolean) // true = spoiler free mode on, false = scrub bar on
 ```
+
+### Bitrate Selection
+
+To instruct PlayKit to use a certain highest bitrate when streaming, you can use the following function:
+
+``` Kotlin
+playKit.setMaximumBitrate(bitrate: Long)
+```
+
+PlayKit will atttempt to change bitrate to that value (or the closest one BELOW that value) for the rest of the stream. This change may not be immediate.
 
 # Change Log
 
 All notable changes to this project will be documented in this section.
+
+### 1.0.1
+- Play harvested content as VODs
+- Minor design change to standard UI
+- Added bitrate selector
+
+### 1.0 - Release
+
+### Beta releases
 
 ### 0.4 - Minor changes for PlayKit2Go integration
 
