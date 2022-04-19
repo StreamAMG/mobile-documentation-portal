@@ -102,6 +102,10 @@ Change Log:
 
 All notable changes to this project will be documented in this section.
 
+### 1.1.0 - PlayKit bitrate selector UI
+
+### 1.0.3 - PlayKit fixes
+
 ### 1.0.1 - PlayKit minor updates
 
 ### 1.0 - Release
