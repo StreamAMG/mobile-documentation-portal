@@ -1,6 +1,7 @@
 
-# StreamSDK
-The StreamSDK provides simple and efficient access to StreamAMG's APIs and services
+StreamAMGSDK   [![](https://jitpack.io/v/StreamAMG/streamamg-sdk-android.svg)](https://jitpack.io/#StreamAMG/streamamg-sdk-android)
+=========
+The StreamAMGSDK provides simple and efficient access to StreamAMG's APIs and services
 
 There are currently four modules available, each of which perform a particular task, or set of tasks, within the SDK, they are:
 
@@ -72,6 +73,8 @@ Change Log:
 ===========
 
 All notable changes to this project will be documented in this section.
+
+### 1.1.1 - PlayKit minor update
 
 ### 1.1.0 - Improved bitrate selector UI and Playkit updates
 

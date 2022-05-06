@@ -1,5 +1,5 @@
 
-StreamAMGSDK
+StreamAMGSDK   [![](https://img.shields.io/cocoapods/v/StreamAMGSDK)](https://github.com/StreamAMG/streamamg-sdk-ios)
 =========
 The StreamAMGSDK provides simple and efficient access to StreamAMG's APIs and services
 
@@ -101,6 +101,8 @@ Change Log:
 ---------------
 
 All notable changes to this project will be documented in this section.
+
+### 1.1.1 - PlayKit minor update
 
 ### 1.1.0 - PlayKit bitrate selector UI
 
