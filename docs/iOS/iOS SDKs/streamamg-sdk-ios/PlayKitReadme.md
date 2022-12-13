@@ -415,6 +415,16 @@ To use this control class, you should add it to your Play Kit set up code:
     playKit.setControlDelegate(self)
 ```
 
+## Custom Overlays
+The AMG Playkit supports adding custom overlays on top of player view. This can be utilised to display custom views on top of the media. For isntance to add custom controls on player view you can create a overlay view with custom controls and place it on top of player view as below,
+
+``` Swift
+        let customControls = CustomPlayerControls(frame: CGRect(x: 0, y: 0, width: *width*, height: *height*))
+        customControls.player = self.playKit
+        self.playKit?.playerView?.addSubview(customControls)
+```
+
+
 ## Play Kit orientation
 
 The AMG Play Kit can be displayed in portrait mode or full screen landscape mode.
@@ -449,6 +459,26 @@ To minimise from full screen
 ``` Swift
 playKit.minimise()
 ```
+
+By default the SDK switches the player to full screen mode in landscape mode. But if your app requires to control this behaviour you can implement the 'AMGPlayKitControlsListener' and override the 'fullscreen' and 'minimise' methods.
+
+``` Swift
+self.playKit?.setControlsListener(controlsListener: self)
+```
+ As the player fullscreen is controlled on client side, you have to notify the SDK when your app displays the player in fullScreen or minimised mode using the interface and update the player frames as given below,
+
+ ``` Swift
+ self.playKit?.updateFullScreen(isFullScreen: Bool)
+ self.playKit?.setPlayerFrame(frame : CGRect)
+ ```
+
+``` Swift
+protocol AMGPlayKitControlsListener: AnyObject {
+     func onFullScreenClicked()
+     func onMinimiseClicked()
+ }
+```
+
 
 ## Sending Media
 
@@ -533,6 +563,10 @@ func durationChangeOccurred(state: AMGPlayKitState) {
 
 func errorOccurred(error: AMGPlayKitError) {
     print("errorOccurred - \(error.errorCode) - \(error.errorMessage)")
+}
+
+func bitrateChangeOccurred(list: [FlavorAsset]?) {
+    print("bitrateChangeOccurred: \n \(String(describing: list))")
 }
 ```
 
@@ -642,14 +676,43 @@ amgPlayKit?.setSpoilerFree(enabled: true) // true = spoiler free mode on, false 
 To instruct PlayKit to use a certain highest bitrate when streaming, you can use the following function:
 
 ``` Swift
-amgPlayKit?.setMaximumBitrate(bitrate: Double)
+amgPlayKit?.setMaximumBitrate(bitrate: FlavorAsset?)
 ```
 
-PlayKit will atttempt to change bitrate to that value (or the closest one BELOW that value) for the rest of the stream.
+PlayKit will atttempt to change bitrate to that value (or the closest one BELOW that value) for the rest of the stream. This change may not be immediate.
+
+PlayKit has a listener (`AMGPlayKitListener`) that contains a method (`bitrateChangeOccurred`) that gives you the list of bitrate when available:
+``` Swift
+func bitrateChangeOccurred(list: [FlavorAsset]?) {
+
+}
+```
 
 # Change Log
 
 All notable changes to this project will be documented in this section.
+
+### 1.1.6
+- Added option to override Fullscreen and minimise button clicks
+- Moved resize screen method to UI thread
+
+### 1.1.5
+- Fixed rotation issue on iOS 16
+
+### 1.1.4
+- Switched bitrate from Int64 to FlavorAsset class
+- Added callback to updateBitrateSelector
+- Exposed list of bitrate through AMGPlayKitListener. bitrateChangeOccurred
+- Added setBitrateAuto function
+- Deprecated setMaximumBitrate(bitrate: Double)
+- Change the hide custom controls method visibility to Public
+- Created a new interface to add custom views on top of Playerview
+
+### 1.1.3
+- Enhanced IAP raw receipt
+
+### 1.1.2
+- Updated IAP package API.
 
 ### 1.1.1
 - Added startPosition to loadMedia
