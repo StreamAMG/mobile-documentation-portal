@@ -3,6 +3,13 @@ Change Log:
 
 All notable changes to this project will be documented in this section.
 
+### 1.2.3
+- Improved bitrate/subtitle icon logic
+- Added custom minimise icon
+
+### 1.2.2
+- Improved bitrate selector
+
 ### 1.2.1
 - Default subtitle track auto-selected
 - Get Label caption on subtitle selector
